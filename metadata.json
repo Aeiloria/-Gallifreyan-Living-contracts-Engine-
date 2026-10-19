@@ -1,0 +1,6 @@
+{
+  "name": "Gallifreyan Matrix Engine // Freedom Bond Visualizer",
+  "description": "AEILORIA.CORE circular logic parser & 3D extrusion engine for temporal sigils, double-sided embossed medallions, 4-stage state-space transitions (x -> z -> z'), and Compersion telemetry observables.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
