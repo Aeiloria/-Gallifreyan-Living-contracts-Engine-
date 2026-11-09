@@ -62,6 +62,11 @@ export const NodeInspector: React.FC<NodeInspectorProps> = ({ token, onClose }) 
         </div>
       </div>
 
+      <div className="flex flex-col gap-1 p-2 bg-slate-950/60 rounded border border-slate-800/80 text-[11px]">
+        <div className="text-[10px] uppercase text-slate-400">SHERMAN GRID READING</div>
+        <div className="text-slate-200 leading-snug break-words">{token.glyphSummary}</div>
+      </div>
+
       {/* Interlocking Chord Connections */}
       <div className="flex flex-col gap-1 p-2 bg-slate-950/60 rounded border border-slate-800/80 text-[11px]">
         <div className="flex items-center gap-1 text-slate-400">

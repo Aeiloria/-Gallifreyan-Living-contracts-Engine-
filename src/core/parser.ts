@@ -5,6 +5,8 @@
  */
 
 import { GallifreyanMatrixModel, StateClassification, CompersionTelemetry, SyntaxToken, StateVector } from '../types/engine';
+import { countVowels, segmentGallifreyan, summarizeGlyphs } from '../data/gallifreyanAlphabet';
+import { latestCorpusSnapshot } from '../data/corpus';
 
 export const STAGES = [
   {
@@ -109,7 +111,8 @@ export function parseGallifreyanSyntax(rawText: string, scenarioId?: string): Ga
     const angle = (i * goldenAngle + (positiveHash * 0.01)) % (Math.PI * 2);
     
     const size = 1.2 + (textLabel.length % 5) * 0.35;
-    const vowelMarkers = (textLabel.match(/[AEIOU]/g) || []).length || (i % 3);
+    const glyphs = segmentGallifreyan(textLabel);
+    const vowelMarkers = countVowels(glyphs);
     const depthExtrusion = 0.4 + (i % 3) * 0.25;
 
     // Connect chords to previous and alternating nodes for interlocking circular syntax
@@ -131,6 +134,7 @@ export function parseGallifreyanSyntax(rawText: string, scenarioId?: string): Ga
       size,
       layerIndex: layer,
       vowelMarkers,
+      glyphSummary: summarizeGlyphs(glyphs),
       chordConnections: chords,
       depthExtrusion,
       role,
@@ -210,6 +214,7 @@ export function parseGallifreyanSyntax(rawText: string, scenarioId?: string): Ga
       `Interlocking syntax nodes: ${tokens.length} polar coordinates`,
       `Structural hanging loop: Embedded at Zenith (Y = +12.4)`,
       `Embossing: Double-sided front relief & reverse scalar keylontic grid`,
+      `Field corpus ${latestCorpusSnapshot().id}: reference crosswalk only. Scenario numbers are designed benchmarks.`,
     ],
   };
 }
