@@ -6,12 +6,16 @@
 
 import React from 'react';
 import { BookMarked, X, Sigma } from 'lucide-react';
+import { corpusSourceMap, latestCorpusSnapshot } from '../data/corpus';
 
 interface EquationReferenceProps {
   onClose: () => void;
 }
 
 export const EquationReference: React.FC<EquationReferenceProps> = ({ onClose }) => {
+  const corpus = latestCorpusSnapshot();
+  const sources = corpusSourceMap(corpus);
+
   return (
     <div className="bg-slate-900/95 border border-cyan-500/60 rounded-xl p-4 shadow-2xl font-mono text-xs max-w-lg w-full select-none flex flex-col gap-3 max-h-[80vh] overflow-y-auto">
       {/* Header */}
@@ -117,6 +121,36 @@ export const EquationReference: React.FC<EquationReferenceProps> = ({ onClose })
             <span className="font-bold">FORCED:</span> ‖z&apos;‖ ⟶ 0 or collapses. Dashed grey trace upon removal.
           </div>
         </div>
+      </div>
+
+      <div className="p-3 bg-slate-950/80 rounded border border-slate-800 flex flex-col gap-2">
+        <div className="text-[10px] text-cyan-400 uppercase font-bold tracking-wider">
+          4. FIELD CORPUS {corpus.gatheredAt}
+        </div>
+        <p className="text-[10px] text-slate-400 leading-relaxed">{corpus.disclaimer}</p>
+        {corpus.crosswalk.map((row) => (
+          <div key={row.observable} className="p-2 rounded bg-slate-900/80 border border-slate-800/80 flex flex-col gap-1">
+            <div className="text-white font-semibold">{row.observable}</div>
+            <div className="text-[10px] text-slate-300 leading-relaxed">{row.gatheredNote}</div>
+            <div className="flex flex-wrap gap-1">
+              {row.sourceIds.map((id) => {
+                const source = sources.get(id);
+                if (!source) return null;
+                return (
+                  <a
+                    key={id}
+                    href={source.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[9px] text-cyan-400 underline underline-offset-2 hover:text-cyan-200"
+                  >
+                    {source.title}
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
