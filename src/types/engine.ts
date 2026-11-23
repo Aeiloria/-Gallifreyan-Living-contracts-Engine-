@@ -45,6 +45,8 @@ export interface SyntaxToken {
   size: number;
   layerIndex: number;
   vowelMarkers: number;
+  /** Sherman-grid reading of this token, from the gathered alphabet table. */
+  glyphSummary: string;
   chordConnections: string[]; // token ids connected to
   depthExtrusion: number;
   role: 'PRIMARY_CORE' | 'TEMPORAL_RING' | 'RESONANCE_CLUSTER' | 'COUPLED_NODE' | 'SATELLITE_GLYPH';

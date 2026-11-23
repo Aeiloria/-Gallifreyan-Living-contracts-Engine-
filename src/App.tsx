@@ -8,6 +8,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import * as THREE from 'three';
 import { GallifreyanMatrixModel, MaterialFinish, PlaybackStage, StateClassification, SyntaxToken, ViewportSettings } from './types/engine';
 import { parseGallifreyanSyntax, computeStageTelemetry, STAGES } from './core/parser';
+import { latestCorpusSnapshot } from './data/corpus';
 import { exportToSTL, exportToSVG } from './core/exporter';
 import { matrixAudio } from './core/audio';
 import { BondCanvas3D } from './components/BondCanvas3D';
@@ -215,6 +216,10 @@ export default function App() {
         </div>
         <div className="text-[10px] text-slate-400 leading-tight">
           Syntax Nodes: <span className="text-slate-200 font-semibold">{model.tokens.length} Circular Glyphs</span>
+        </div>
+        <div className="text-[10px] text-slate-400 leading-tight">
+          Field corpus:{' '}
+          <span className="text-slate-200 font-semibold">{latestCorpusSnapshot().gatheredAt}</span>
         </div>
         <div className="text-[10px] text-slate-400 leading-tight">
           Status:{' '}
